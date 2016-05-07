@@ -19,7 +19,6 @@ C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\bin\Debug\
 C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\bin\Debug\MiniERP.exe
 C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\bin\Debug\MiniERP.pdb
 C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\bin\Debug\MySql.Data.dll
-C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\obj\Debug\MiniERP.csprojResolveAssemblyReference.cache
 C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\obj\Debug\MiniERP.Forms.Administration.resources
 C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\obj\Debug\MiniERP.Forms.Category.resources
 C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\obj\Debug\MiniERP.Forms.CustomerDetail.resources
@@ -34,3 +33,4 @@ C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\obj\Debug\
 C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\obj\Debug\MiniERP.csproj.GenerateResource.Cache
 C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\obj\Debug\MiniERP.exe
 C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\obj\Debug\MiniERP.pdb
+C:\Users\Kosala\Documents\Visual Studio 2015\Projects\MiniERP\MiniERP\obj\Debug\MiniERP.csprojResolveAssemblyReference.cache

@@ -6,6 +6,7 @@ using MiniERP.Forms;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
 using System.Text;
+using System.Configuration;
 
 namespace MiniERP.Classes
 {
@@ -24,13 +25,7 @@ namespace MiniERP.Classes
 
         private void Initializer()
         {
-            string connectionString;
-            server = "localhost";
-            database = "mini_erp";
-            uid = "root";
-            password = "Neo@2014";
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" +
-                               password + ";";
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             connection = new MySqlConnection(connectionString);
         }
 
