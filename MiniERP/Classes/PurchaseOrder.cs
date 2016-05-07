@@ -12,6 +12,7 @@ namespace MiniERP.Classes
         public DateTime Date { get; set; }
         public double InvoiceVal { get; set; }
         public string Remarks { get; set; }
+        public Status status { get; set; }
 
         public static string NextOrderNo
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Forms;
+using MiniERP.Forms;
 using MySql.Data.MySqlClient;
 
 namespace MiniERP.Classes
@@ -67,9 +68,54 @@ namespace MiniERP.Classes
             }
         }
 
-        internal void NewPurchaseOrder(PurchaseOrder purchOrder)
+        internal bool NewPurchaseOrder(PurchaseOrder purchOrder)
         {
-            throw new NotImplementedException();
+            if (!PurchaseOrderCheckExist(purchOrder.OrderNo))
+            {
+                string stmt = "INSERT INTO purchase_order_tab VALUES ('" + purchOrder.OrderNo + "', '" +
+                    StringManipulation.GetDBDate(purchOrder.Date) + "', '" + purchOrder.Remarks + "', " +
+                    purchOrder.InvoiceVal + ", '" + purchOrder.status + "')";
+                if (OpenConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(stmt, connection);
+                    cmd.ExecuteNonQuery();
+                    CloseConnection();
+                    IncreaseSequence("purch_order_no_sequence", "P");
+                    return true;
+                }
+            }
+            else
+                MessageBox.Show("Purchase Order number already exist. Cannot add order.");
+            return false;
+        }
+
+        internal void SavePurchaseOrder(PurchaseOrder purchOrder)
+        {
+            if (!PurchaseOrderCheckExist(purchOrder.OrderNo))
+                NewPurchaseOrder(purchOrder);
+            else
+                UpdatePurchaseOrder(purchOrder);
+        }
+
+        private bool PurchaseOrderCheckExist(string orderNo)
+        {
+            string stmt = "SELECT 1 FROM purchase_order_tab WHERE order_no = '" + orderNo + "'";
+            if (OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(stmt, connection);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+                if (dataReader.Read())
+                {
+                    CloseConnection();
+                    return true;
+                }
+                else
+                {
+                    CloseConnection();
+                    return false;
+                }
+            }
+            return false;
         }
 
         internal bool Authenticate(string UserId, string HashCode, out bool isSuperUser, out string userName)
@@ -100,6 +146,28 @@ namespace MiniERP.Classes
                 return ChangePassword(userName, oldPass, newPass);
             else
                 return NewUser(userName, superUser);
+        }
+
+        internal PurchaseOrder GetPurchaseOrder(string orderNo)
+        {
+            PurchaseOrder order = new PurchaseOrder();
+            string stmt = "SELECT * FROM purchase_order_tab WHERE order_no = '" + orderNo + "'";
+            if (OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(stmt, connection);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+                if (dataReader.Read())
+                {
+                    order.OrderNo = orderNo;
+                    order.Date = StringManipulation.GetClientDate(dataReader["date"].ToString());
+                    order.Remarks = dataReader["remarks"].ToString();
+                    order.InvoiceVal = double.Parse(dataReader["inv_value"].ToString());
+                    order.status = (Status)Enum.Parse(typeof(Status), dataReader["status"].ToString());
+                }
+                CloseConnection();
+            }
+
+            return order;
         }
 
         private bool NewUser(string userName, bool superUser)
@@ -628,7 +696,7 @@ namespace MiniERP.Classes
                 if (update)
                     UpdateCustomerOrder(order);
                 else
-                    MessageBox.Show("CustomerOrder number already exist. Cannot add part.");
+                    MessageBox.Show("Customer Order number already exist. Cannot add oder.");
             }
             return false;
         }
@@ -637,16 +705,37 @@ namespace MiniERP.Classes
         {
             if (CustomerOrderCheckExist(order.OrderNo))
             {
-                string stmt = "UPDATE customer_order_tab SET customer_no = '" + order.CustomerNo + 
-                                                        "', customer_name = '" + order.CustomerName + 
-                                                        "', delivery_add = '" + order.DelAddress + 
-                                                        "', delivary_date = '" + order.DelDate + 
-                                                        "', total_net_ammount = " + order.NetAmount + 
-                                                        ", total_discount_ammount = " + order.DiscAmount + 
-                                                        ", invoiced_value = " + order.InvoiceVal + 
-                                                        ", status = '" + order.Status + 
-                                                        "', payment_type = '" + order.PaymentType + 
-                                                        "', cheque_no = '" + order.ChequeNo + 
+                string stmt = "UPDATE customer_order_tab SET customer_no = '" + order.CustomerNo +
+                                                        "', customer_name = '" + order.CustomerName +
+                                                        "', delivery_add = '" + order.DelAddress +
+                                                        "', delivary_date = '" + StringManipulation.GetDBDate(order.DelDate) +
+                                                        "', total_net_ammount = " + order.NetAmount +
+                                                        ", total_discount_ammount = " + order.DiscAmount +
+                                                        ", invoiced_value = " + order.InvoiceVal +
+                                                        ", status = '" + order.Status +
+                                                        "', payment_type = '" + order.PaymentType +
+                                                        "', cheque_no = '" + order.ChequeNo +
+                                                        "' WHERE order_no = '" + order.OrderNo + "'";
+
+                if (OpenConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(stmt, connection);
+                    cmd.ExecuteNonQuery();
+                    CloseConnection();
+                    return true;
+                }
+            }
+            return true;
+        }
+
+        internal bool UpdatePurchaseOrder(PurchaseOrder order)
+        {
+            if (CustomerOrderCheckExist(order.OrderNo))
+            {
+                string stmt = "UPDATE customer_order_tab SET date = '" + StringManipulation.GetDBDate(order.Date) +
+                                                        "', remarks = '" + order.Remarks +
+                                                        "', inv_value = " + order.InvoiceVal +
+                                                        ", status = '" + order.status +
                                                         "' WHERE order_no = '" + order.OrderNo + "'";
 
                 if (OpenConnection())
@@ -670,7 +759,7 @@ namespace MiniERP.Classes
                                                             "', discount = '" + orderLine.Discount +
                                                             "', discounted_price = " + orderLine.DiscountedPrice +
                                                             "' WHERE order_no = '" + orderLine.OrderNo +
-                                                            "' AND line_no = '"+orderLine.LineNo+"'";
+                                                            "' AND line_no = '" + orderLine.LineNo + "'";
 
                 if (OpenConnection())
                 {
@@ -764,7 +853,7 @@ namespace MiniERP.Classes
         {
             int orderNo = int.Parse(GetNextOrderNo(tableName, true)) + 1;
 
-            string stmt = "UPDATE "+ tableName + " SET val = " + orderNo + " WHERE letter = '" + letter + "'";//"INSERT INTO " + sequence + " (letter) VALUES ('" + letter + "')";
+            string stmt = "UPDATE " + tableName + " SET val = " + orderNo + " WHERE letter = '" + letter + "'";//"INSERT INTO " + sequence + " (letter) VALUES ('" + letter + "')";
             if (OpenConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(stmt, connection);

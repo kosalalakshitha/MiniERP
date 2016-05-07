@@ -28,37 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Customer CustomerOrder");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Customer CustomerOrder", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Purchase CustomerOrder");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Purchase CustomerOrder", new System.Windows.Forms.TreeNode[] {
-            treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Parts");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Catagory");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Part", new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Customer");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Administration");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Application", new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode4,
-            treeNode7,
-            treeNode8,
-            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Customer CustomerOrder");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Customer CustomerOrder", new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Purchase CustomerOrder");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Purchase CustomerOrder", new System.Windows.Forms.TreeNode[] {
+            treeNode13});
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Parts");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Catagory");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Part", new System.Windows.Forms.TreeNode[] {
+            treeNode15,
+            treeNode16});
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Customer");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Administration");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Application", new System.Windows.Forms.TreeNode[] {
+            treeNode12,
+            treeNode14,
+            treeNode17,
+            treeNode18,
+            treeNode19});
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -75,6 +79,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer1.Size = new System.Drawing.Size(768, 498);
             this.splitContainer1.SplitterDistance = 138;
             this.splitContainer1.TabIndex = 4;
@@ -99,28 +104,28 @@
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "custOrder";
-            treeNode1.Text = "Customer CustomerOrder";
-            treeNode2.Name = "Node1";
-            treeNode2.Text = "Customer CustomerOrder";
-            treeNode3.Name = "purchOrder";
-            treeNode3.Text = "Purchase CustomerOrder";
-            treeNode4.Name = "Node2";
-            treeNode4.Text = "Purchase CustomerOrder";
-            treeNode5.Name = "part";
-            treeNode5.Text = "Parts";
-            treeNode6.Name = "catagory";
-            treeNode6.Text = "Catagory";
-            treeNode7.Name = "Node4";
-            treeNode7.Text = "Part";
-            treeNode8.Name = "customer";
-            treeNode8.Text = "Customer";
-            treeNode9.Name = "administration";
-            treeNode9.Text = "Administration";
-            treeNode10.Name = "Node0";
-            treeNode10.Text = "Application";
+            treeNode11.Name = "custOrder";
+            treeNode11.Text = "Customer CustomerOrder";
+            treeNode12.Name = "Node1";
+            treeNode12.Text = "Customer CustomerOrder";
+            treeNode13.Name = "purchOrder";
+            treeNode13.Text = "Purchase CustomerOrder";
+            treeNode14.Name = "Node2";
+            treeNode14.Text = "Purchase CustomerOrder";
+            treeNode15.Name = "part";
+            treeNode15.Text = "Parts";
+            treeNode16.Name = "catagory";
+            treeNode16.Text = "Catagory";
+            treeNode17.Name = "Node4";
+            treeNode17.Text = "Part";
+            treeNode18.Name = "customer";
+            treeNode18.Text = "Customer";
+            treeNode19.Name = "administration";
+            treeNode19.Text = "Administration";
+            treeNode20.Name = "Node0";
+            treeNode20.Text = "Application";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode10});
+            treeNode20});
             this.treeView1.Size = new System.Drawing.Size(134, 349);
             this.treeView1.TabIndex = 0;
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
@@ -141,6 +146,15 @@
             this.lblStatus.Size = new System.Drawing.Size(118, 17);
             this.lblStatus.Text = "toolStripStatusLabel1";
             // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Size = new System.Drawing.Size(622, 494);
+            this.splitContainer3.SplitterDistance = 576;
+            this.splitContainer3.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,6 +166,7 @@
             this.Text = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -159,6 +174,8 @@
             this.splitContainer2.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,5 +188,6 @@
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
+        private System.Windows.Forms.SplitContainer splitContainer3;
     }
 }

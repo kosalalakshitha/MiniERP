@@ -94,7 +94,7 @@ namespace MiniERP.Forms
             item = new ListBoxItem(treeView1.SelectedNode.Text, window, windowCount);
             openWindowList.Items.Add(item);
             windowCount++;
-            splitContainer1.Panel2.Controls.Add(item.bindWindow);
+            splitContainer3.Panel1.Controls.Add(item.bindWindow);
             item.bindWindow.Show();
             item.bindWindow.BringToFront();
 

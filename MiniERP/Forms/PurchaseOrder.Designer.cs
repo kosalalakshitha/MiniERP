@@ -43,6 +43,8 @@
             this.qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.stbStatus = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -57,6 +59,7 @@
             this.cbOrderNo.Name = "cbOrderNo";
             this.cbOrderNo.Size = new System.Drawing.Size(121, 21);
             this.cbOrderNo.TabIndex = 1;
+            this.cbOrderNo.SelectedIndexChanged += new System.EventHandler(this.cbOrderNo_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -69,6 +72,7 @@
             // 
             // stbInvoiceVal
             // 
+            this.stbInvoiceVal.Enabled = false;
             this.stbInvoiceVal.Location = new System.Drawing.Point(528, 8);
             this.stbInvoiceVal.Name = "stbInvoiceVal";
             this.stbInvoiceVal.Size = new System.Drawing.Size(121, 20);
@@ -166,6 +170,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.stbStatus);
+            this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.cbOrderNo);
             this.splitContainer1.Panel1.Controls.Add(this.stbInvoiceVal);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
@@ -181,6 +187,23 @@
             this.splitContainer1.Size = new System.Drawing.Size(670, 521);
             this.splitContainer1.SplitterDistance = 62;
             this.splitContainer1.TabIndex = 23;
+            // 
+            // stbStatus
+            // 
+            this.stbStatus.Enabled = false;
+            this.stbStatus.Location = new System.Drawing.Point(528, 34);
+            this.stbStatus.Name = "stbStatus";
+            this.stbStatus.Size = new System.Drawing.Size(121, 20);
+            this.stbStatus.TabIndex = 22;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(447, 37);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Status:";
             // 
             // PurchaseOrder
             // 
@@ -220,5 +243,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn qty;
         private System.Windows.Forms.DataGridViewTextBoxColumn value;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TextBox stbStatus;
+        private System.Windows.Forms.Label label2;
     }
 }
