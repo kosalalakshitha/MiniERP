@@ -4,6 +4,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Forms;
 using MiniERP.Forms;
 using MySql.Data.MySqlClient;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MiniERP.Classes
 {
@@ -118,26 +120,44 @@ namespace MiniERP.Classes
             return false;
         }
 
-        internal bool Authenticate(string UserId, string HashCode, out bool isSuperUser, out string userName)
+        internal bool Authenticate(string UserId, string password, out bool isSuperUser, out string userName)
         {
-            var query = "SELECT user_id, super_user FROM authentication_tab where user_id = '" + UserId + "' AND password = '" + HashCode + "'";
+            string HashCode;
+            SHA256 shaM = new SHA256Managed();
+            HashCode = Encoding.ASCII.GetString(shaM.ComputeHash(Encoding.ASCII.GetBytes(password)));
+            
+            var query = "SELECT user_id, super_user FROM authentication_tab where user_id = @UserId AND password = @HashCode";
 
             isSuperUser = false;
             bool result = false;
             userName = "";
-            if (OpenConnection())
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.Add("@UserId", MySqlDbType.VarChar);
+            command.Parameters["@UserId"].Value = UserId;
+            command.Parameters.Add("@HashCode", MySqlDbType.VarChar);
+            command.Parameters["@HashCode"].Value = HashCode;
+
+            try
             {
-                var cmd = new MySqlCommand(query, connection);
-                var dataReader = cmd.ExecuteReader();
-                if (dataReader.Read())
+                if (OpenConnection())
                 {
-                    isSuperUser = dataReader["super_user"].ToString().Equals("TRUE");
-                    userName = dataReader["user_id"].ToString();
-                    result = true;
+                    var dataReader = command.ExecuteReader();
+                    if (dataReader.Read())
+                    {
+                        isSuperUser = dataReader["super_user"].ToString().Equals("TRUE");
+                        userName = dataReader["user_id"].ToString();
+                        result = true;
+                    }
+                    CloseConnection();
                 }
-                CloseConnection();
             }
-            return result; ;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return result;
         }
 
         internal bool SaveUseDetail(string userName, string oldPass, string newPass, bool superUser)
@@ -172,7 +192,20 @@ namespace MiniERP.Classes
 
         private bool NewUser(string userName, bool superUser)
         {
-            string stmt = "INSERT INTO authentication_tab (user_id, super_user) VALUES ('" + userName + "', '" + superUser.ToString().ToUpper() + "')";
+            string HashCode;
+            SHA256 shaM = new SHA256Managed();
+            HashCode = Encoding.ASCII.GetString(shaM.ComputeHash(Encoding.ASCII.GetBytes("password")));
+
+            string stmt = "INSERT INTO authentication_tab (user_id, password, super_user) VALUES (@userName, @HashCode, @superUser)";
+            
+            MySqlCommand cmd = new MySqlCommand(stmt, connection);
+            cmd.Parameters.Add("@userName", MySqlDbType.VarChar);
+            cmd.Parameters["@userName"].Value = userName;
+            cmd.Parameters.Add("@HashCode", MySqlDbType.VarChar);
+            cmd.Parameters["@HashCode"].Value = HashCode;
+            cmd.Parameters.Add("@superUser", MySqlDbType.VarChar);
+            cmd.Parameters["@superUser"].Value = superUser.ToString().ToUpper();
+
             if (userName.Equals(string.Empty))
             {
                 MessageBox.Show("Please enter a user name");
@@ -180,7 +213,6 @@ namespace MiniERP.Classes
             }
             if (OpenConnection())
             {
-                MySqlCommand cmd = new MySqlCommand(stmt, connection);
                 cmd.ExecuteNonQuery();
                 CloseConnection();
                 return true;
@@ -212,13 +244,26 @@ namespace MiniERP.Classes
         private bool ChangePassword(string userName, string oldPass, string newPass)
         {
             int result;
-            string stmt = "UPDATE authentication_tab SET password = '" + newPass +
-                                                    "' WHERE user_id = '" + userName +
-                                                    "' AND password = '" + oldPass + "'";
+            string oldHashCode, newHashCode;
+            SHA256 shaM = new SHA256Managed();
+
+            oldHashCode = Encoding.ASCII.GetString(shaM.ComputeHash(Encoding.ASCII.GetBytes(oldPass)));
+            newHashCode = Encoding.ASCII.GetString(shaM.ComputeHash(Encoding.ASCII.GetBytes(newPass)));
+
+            string stmt = "UPDATE authentication_tab SET password = @newHashCode WHERE user_id = @userName AND password = @oldHashCode";
+
+            MySqlCommand command = new MySqlCommand(stmt, connection);
+            command.Parameters.Add("@userName", MySqlDbType.VarChar);
+            command.Parameters["@userName"].Value = userName;
+            command.Parameters.Add("@oldHashCode", MySqlDbType.VarChar);
+            command.Parameters["@oldHashCode"].Value = oldHashCode;
+            command.Parameters.Add("@newHashCode", MySqlDbType.VarChar);
+            command.Parameters["@newHashCode"].Value = newHashCode;
+
+
             if (OpenConnection())
             {
-                MySqlCommand cmd = new MySqlCommand(stmt, connection);
-                result = cmd.ExecuteNonQuery();
+                result = command.ExecuteNonQuery();
                 CloseConnection();
                 if (result != 1)
                 {
@@ -232,12 +277,23 @@ namespace MiniERP.Classes
 
         internal bool DeleteUser(string userName, string password)
         {
+            string HashCode;
+            SHA256 shaM = new SHA256Managed();
+
+            HashCode = Encoding.ASCII.GetString(shaM.ComputeHash(Encoding.ASCII.GetBytes(password)));
+
             if (CheckUser(userName))
             {
-                string stmt = "DELETE FROM authentication_tab WHERE user_id = '" + userName + "' AND password = '" + password + "'";
+                string stmt = "DELETE FROM authentication_tab WHERE user_id = @userName AND password = @HashCode";
+
+                MySqlCommand cmd = new MySqlCommand(stmt, connection);
+                cmd.Parameters.Add("@userName", MySqlDbType.VarChar);
+                cmd.Parameters["@userName"].Value = userName;
+                cmd.Parameters.Add("@HashCode", MySqlDbType.VarChar);
+                cmd.Parameters["@HashCode"].Value = HashCode;
+
                 if (OpenConnection())
                 {
-                    MySqlCommand cmd = new MySqlCommand(stmt, connection);
                     cmd.ExecuteNonQuery();
                     CloseConnection();
                     return true;

@@ -25,6 +25,9 @@ namespace MiniERP.Forms
             this.IsMdiContainer = true;
             createListView();
             lblStatus.Text = "System Ready...";
+            splitContainer3.FixedPanel = FixedPanel.Panel2;
+            splitContainer3.IsSplitterFixed = true;
+            splitContainer1.FixedPanel = FixedPanel.Panel1;
         }
 
         private void createListView()

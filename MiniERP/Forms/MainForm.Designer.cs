@@ -53,6 +53,11 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.btnDuplicate = new System.Windows.Forms.Button();
+            this.btnPopulate = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnLov = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -62,6 +67,7 @@
             this.splitContainer2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -132,8 +138,6 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 498);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(768, 22);
@@ -149,11 +153,68 @@
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.IsSplitterFixed = true;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
             this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Window;
+            this.splitContainer3.Panel2.BackgroundImage = global::MiniERP.Properties.Resources.Strip;
+            this.splitContainer3.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.splitContainer3.Panel2.Controls.Add(this.btnLov);
+            this.splitContainer3.Panel2.Controls.Add(this.btnSearch);
+            this.splitContainer3.Panel2.Controls.Add(this.btnPopulate);
+            this.splitContainer3.Panel2.Controls.Add(this.btnDuplicate);
+            this.splitContainer3.Panel2.Controls.Add(this.btnNew);
             this.splitContainer3.Size = new System.Drawing.Size(622, 494);
             this.splitContainer3.SplitterDistance = 576;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // btnNew
+            // 
+            this.btnNew.Location = new System.Drawing.Point(3, 10);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(36, 36);
+            this.btnNew.TabIndex = 0;
+            this.btnNew.Text = "New";
+            this.btnNew.UseVisualStyleBackColor = true;
+            // 
+            // btnDuplicate
+            // 
+            this.btnDuplicate.Location = new System.Drawing.Point(3, 136);
+            this.btnDuplicate.Name = "btnDuplicate";
+            this.btnDuplicate.Size = new System.Drawing.Size(36, 36);
+            this.btnDuplicate.TabIndex = 1;
+            this.btnDuplicate.Text = "Duplicate";
+            this.btnDuplicate.UseVisualStyleBackColor = true;
+            // 
+            // btnPopulate
+            // 
+            this.btnPopulate.Location = new System.Drawing.Point(3, 94);
+            this.btnPopulate.Name = "btnPopulate";
+            this.btnPopulate.Size = new System.Drawing.Size(36, 36);
+            this.btnPopulate.TabIndex = 2;
+            this.btnPopulate.Text = "Populate";
+            this.btnPopulate.UseVisualStyleBackColor = true;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(3, 52);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(36, 36);
+            this.btnSearch.TabIndex = 3;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            // 
+            // btnLov
+            // 
+            this.btnLov.Location = new System.Drawing.Point(3, 178);
+            this.btnLov.Name = "btnLov";
+            this.btnLov.Size = new System.Drawing.Size(36, 36);
+            this.btnLov.TabIndex = 4;
+            this.btnLov.Text = "Lov";
+            this.btnLov.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -174,6 +235,7 @@
             this.splitContainer2.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -189,5 +251,10 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.Button btnLov;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnPopulate;
+        private System.Windows.Forms.Button btnDuplicate;
+        private System.Windows.Forms.Button btnNew;
     }
 }

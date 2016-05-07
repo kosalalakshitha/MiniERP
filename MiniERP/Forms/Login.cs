@@ -31,10 +31,10 @@ namespace MiniERP
             }
             else
             {
-                new MainForm().Show();
-                this.Dispose(false);
+                //new MainForm().Show();
+                //this.Dispose(false);
                 //new PartDetails().Show();
-                //MessageBox.Show("Log in unsuccess..... :(");
+                MessageBox.Show("Log in unsuccess..... :(");
             }
         }
 
